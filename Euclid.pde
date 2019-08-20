@@ -70,12 +70,16 @@ class Board {
   }
 
   void drawBoard() {
+    fill(255,255,255);
+    stroke(255,255,255);
+    rect(0, 0, 500, Board.CELL_WIDTH);
+    noFill();
+    stroke(0,0,0);
+
     textSize(24);
     fill(0,0,0);
     Point score1Loc = new Point(Board.xOffset/2 + ((Board.WIDTH * Board.CELL_WIDTH) / 4) - Board.CELL_WIDTH, Board.yOffset/2);
     Point score2Loc = new Point(Board.xOffset   + ((Board.WIDTH * Board.CELL_WIDTH) / 2) + Board.CELL_WIDTH, Board.yOffset/2);
-    text("      ", score1Loc.x, score1Loc.y);
-    text("      ", score2Loc.x, score2Loc.y);
     text(String.format("Score 1: %5d", score1), score1Loc.x, score1Loc.y);
     text(String.format("Score 2: %5d", score2), score2Loc.x, score2Loc.y);
     noFill();
