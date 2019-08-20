@@ -3,7 +3,7 @@ Board board = new Board();
 
 void setup() {
   size(500, 500);
-  background(255, 255, 255);
+  background(128, 128, 128);
   board.drawBoard();
 }
 
@@ -128,19 +128,24 @@ class Board {
     int y3 = s.p3.y;
     int x4 = s.p4.x;
     int y4 = s.p4.y;
+    if (x1 == x2 || y1 == y2) strokeWeight(2); else strokeWeight(1);
     line(
       xOffset + x1 * Board.CELL_WIDTH + Board.CELL_WIDTH/2, Board.yOffset + y1 * Board.CELL_HEIGHT + Board.CELL_HEIGHT/2,
       xOffset + x2 * Board.CELL_WIDTH + Board.CELL_WIDTH/2, Board.yOffset + y2 * Board.CELL_HEIGHT + Board.CELL_HEIGHT/2);
+    if (x3 == x4 || y3 == y4) strokeWeight(2); else strokeWeight(1);
     line(
       xOffset + x3 * Board.CELL_WIDTH + Board.CELL_WIDTH/2, Board.yOffset + y3 * Board.CELL_HEIGHT + Board.CELL_HEIGHT/2,
       xOffset + x4 * Board.CELL_WIDTH + Board.CELL_WIDTH/2, Board.yOffset + y4 * Board.CELL_HEIGHT + Board.CELL_HEIGHT/2);
+    if (x1 == x3 || y1 == y3) strokeWeight(2); else strokeWeight(1);
     line(
       xOffset + x1 * Board.CELL_WIDTH + Board.CELL_WIDTH/2, Board.yOffset + y1 * Board.CELL_HEIGHT + Board.CELL_HEIGHT/2,
       xOffset + x3 * Board.CELL_WIDTH + Board.CELL_WIDTH/2, Board.yOffset + y3 * Board.CELL_HEIGHT + Board.CELL_HEIGHT/2);
+    if (x2 == x4 || y2 == y4) strokeWeight(2); else strokeWeight(1);
     line(
       xOffset + x2 * Board.CELL_WIDTH + Board.CELL_WIDTH/2, Board.yOffset + y2 * Board.CELL_HEIGHT + Board.CELL_HEIGHT/2,
       xOffset + x4 * Board.CELL_WIDTH + Board.CELL_WIDTH/2, Board.yOffset + y4 * Board.CELL_HEIGHT + Board.CELL_HEIGHT/2);
-  }
+    strokeWeight(1);
+}
 
   void addMove(int x, int y) {
     int index = x + y * Board.WIDTH;
@@ -155,10 +160,6 @@ class Board {
   }
 
   void calcSquares() {
-    squares1.clear();
-    squares2.clear();
-    score1 = 0;
-    score2 = 0;
     for (int y1=0; y1 < Board.HEIGHT; y1++) {
       for (int x1=0; x1 < Board.WIDTH; x1++) {
         int p1 = board[x1 + y1 * Board.WIDTH];
@@ -173,13 +174,41 @@ class Board {
             int y3 = y1 + dx12;
             int x4 = x2 - dy12;
             int y4 = y2 + dx12;
-            Square s = new Square(x1, y1, x2, y2, x3, y3, x4, y4);
+            Square s1 = new Square(x1, y1, x2, y2, x3, y3, x4, y4);
             if (p1 == 1) {
-              squares1.add(s);
-              score1 += abs(x2 - x1) * abs(y3 - y1);
+              if (!contains(squares1, s1)) {
+                //System.out.print("squares1: ");
+                //for (Square s : squares1) {
+                //  System.out.print(s.toString() + ", ");
+                //}
+                //System.out.println();
+                //System.out.println(s1.toString());
+                squares1.add(s1);
+                score1 += (abs(x2 - x1) + 1) * (abs(y3 - y1) + 1);
+
+                //System.out.print("squares1: ");
+                //for (Square s : squares1) {
+                //  System.out.print(s.toString() + ", ");
+                //}
+                //System.out.println();
+              }
             } else {
-              squares2.add(s);
-              score2 += abs(x2 - x1) * abs(y3 - y1);
+              if (!contains(squares2, s1)) {
+                //System.out.print("squares2: ");
+                //for (Square s : squares2) {
+                //  System.out.print(s.toString() + ", ");
+                //}
+                //System.out.println();
+                //System.out.println(s1.toString());
+                squares2.add(s1);
+                score2 += (abs(x2 - x1) + 1) * (abs(y3 - y1) + 1);
+
+                //System.out.print("squares2: ");
+                //for (Square s : squares2) {
+                //  System.out.print(s.toString() + ", ");
+                //}
+                //System.out.println();
+              }
             }
           }
         }
@@ -188,12 +217,34 @@ class Board {
   }
 }
 
+boolean contains(ArrayList<Square> squares, Square s1) {
+  if (s1.p2.equals(s1.p3) || s1.p1.equals(s1.p4)) return true;
+  Square s2 = new Square(s1.p2.x, s1.p2.y, s1.p1.x, s1.p1.y, s1.p4.x, s1.p4.y, s1.p3.x, s1.p3.y);
+  Square s3 = new Square(s1.p4.x, s1.p4.y, s1.p2.x, s1.p2.y, s1.p3.x, s1.p3.y, s1.p1.x, s1.p1.y);
+  Square s4 = new Square(s1.p3.x, s1.p3.y, s1.p1.x, s1.p1.y, s1.p4.x, s1.p4.y, s1.p2.x, s1.p2.y);
+  for (Square s : squares) {
+    if (s.equals(s1) || 
+        s.equals(s2) || 
+        s.equals(s3) || 
+        s.equals(s4)) return true;
+  }
+  return false;
+}
+
 class Point {
   int x, y;
 
   Point(int x, int y) {
     this.x = x;
     this.y = y;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) return false;
+    Point p = (Point) obj;
+    if (p == this) return true;
+    return (p.x == x) && (p.y == y);
   }
 }
 
@@ -204,6 +255,20 @@ class Square {
     p2 = new Point(x2,y2);
     p3 = new Point(x3,y3);
     p4 = new Point(x4,y4);
+  }
+  
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == null) return false;
+    Square s = (Square) obj;
+    if (s == this) return true;
+    return (s.p1.equals(p1) && s.p2.equals(p2) && s.p3.equals(p3) && s.p4.equals(p4));
+  }
+  
+  @Override
+  public String toString() {
+    return String.format("Square(%d,%d %d,%d, %d,%d, %d,%d",
+      p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, p4.x, p4.y);
   }
 }
 
@@ -228,17 +293,17 @@ static boolean isSquare(Board b, int x1, int y1, int x2, int y2) {
 }
 
 void mouseClicked() {
-  int x = mouseX - Board.xOffset;
-  x /= Board.CELL_WIDTH; 
-  int y = mouseY - Board.yOffset;
-  y /= Board.CELL_HEIGHT;
+  int x = (mouseX - Board.xOffset) / Board.CELL_WIDTH; 
+  int y = (mouseY - Board.yOffset) / Board.CELL_HEIGHT;
   if (x < 0 || x >= Board.WIDTH || y < 0 || y >= Board.HEIGHT) return;
   board.addMove(x, y);
   board.calcSquares();
   board.drawBoard();
   lastX = lastY = -1;
-  try {
-    Thread.sleep(50);
-  } catch (InterruptedException e) {
-  }
+
+  // debounce
+  //try {
+  //  Thread.sleep(50);
+  //} catch (InterruptedException e) {
+  //}
 }
