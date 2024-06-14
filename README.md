@@ -12,13 +12,14 @@ The first player to 150 wins but this can be changed in the code. Points are awa
 3 playing styles for the computer: Offsensive makes the best moves to win, Defensive makes the best moves to block your almost completed squares, Beginner mode is offensive but makes occasional mistakes randomly.
 
 Special keystrokes are also supported:
-Q - Quit
-C - Toggle between whether the current player is human or computer. 
+ * Q - Quit
+ * C - Toggle between whether the current player is human or computer. 
     Toggling both to computer makes it play itself
-N - New Game
-T - Toggle whose turn it is: player 1 or player 2
-P - Select playing style of compuer: Offensive, Defensive, Beginner (makes mistakes)
-U - Undo last move
-Space - Have the computer make a move for you
-Board showing a game in progress
+ * N - New Game
+ * T - Toggle whose turn it is: player 1 or player 2
+ * P - Select playing style of compuer: Offensive, Defensive, Beginner (makes mistakes)
+ * U - Undo last move
+ * Space - Have the computer make a move for you
+
+![game board](image.jpg)
 
