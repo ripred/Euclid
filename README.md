@@ -10,6 +10,7 @@ Use the mouse to select your move and then the computer will make it's move. The
 The first player to 150 wins but this can be changed in the code. Points are awarded by the area of the squares made. Bigger squares make more points.
 
 3 playing styles for the computer: Offensive makes the best moves to win, Defensive makes the best moves to block your almost completed squares, Beginner mode is offensive but makes occasional mistakes randomly.
+
 Special keystrokes are also supported:
  * Q - Quit
  * C - Toggle between whether the current player is human or computer. 
@@ -18,6 +19,5 @@ Special keystrokes are also supported:
  * T - Toggle whose turn it is: player 1 or player 2
  * P - Select playing style of compuer: Offensive, Defensive, Beginner (makes mistakes)
  * U - Undo last move
- * Space - Have the computer make a move for you
-![game board](EuclidGameBoard.png)
+ * Space - Have the computer make a move for you ![game board](EuclidGameBoard.png)
 
