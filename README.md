@@ -20,6 +20,5 @@ Special keystrokes are also supported:
  * P - Select playing style of compuer: Offensive, Defensive, Beginner (makes mistakes)
  * U - Undo last move
  * Space - Have the computer make a move for you
-
-![game board](image.jpg)
+![game board](EuclidGameBoard.png)
 
