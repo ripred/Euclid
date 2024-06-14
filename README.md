@@ -1,5 +1,5 @@
 # Euclid
-Great 1 or 2 player puzzle game written in Java for the Processing application.
+Great 1 or 2 player puzzle game written in Java for the Processing IDE/environment.
 
 The goal is to create the largest symetrical squares on the board in any orientation by taking the spots in a turn based manner. With the right strategies one spot can create multiple squares at once. 
 
