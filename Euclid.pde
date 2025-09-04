@@ -3,7 +3,14 @@
  *
  * @summary: MetaSquares-like board game with AI written in Java for the Processing environment
  * @author:  trent m. wyatt
+ * @version: 0.001
+ * @date:    March-1998
+ * @version: 0.023
  * @date:    August-2010
+ * @version: 0.029
+ * @date:    August-2021
+ * @version: 0.042
+ * @date:    September-2025
  *
  */
 
